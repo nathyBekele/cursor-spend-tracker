@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Small key/value table for the Cursor session token, last sync status, etc.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+// One row per Cursor usage event (one Composer/Chat/Tab request).
+// `raw` always keeps the untouched payload so nothing is lost if Cursor's
+// undocumented response shape changes and the mapped fields below go stale.
+model UsageEvent {
+  id                String   @id
+  occurredAt        DateTime
+  model             String
+  kind              String?
+  isTokenBasedCall  Boolean  @default(false)
+  isHeadless        Boolean  @default(false)
+  inputTokens       Int      @default(0)
+  outputTokens      Int      @default(0)
+  cacheWriteTokens  Int      @default(0)
+  cacheReadTokens   Int      @default(0)
+  modelCostCents    Float    @default(0)
+  cursorFeeCents    Float    @default(0)
+  chargedCents      Float    @default(0)
+  costSource        String   @default("cursor")
+  raw               Json
+  createdAt         DateTime @default(now())
+
+  @@index([occurredAt])
+  @@index([model])
+}
