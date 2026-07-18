@@ -74,6 +74,18 @@ function formatTokens(n: number): string {
   return String(n);
 }
 
+function formatLastSynced(isoOrMs: string | number): string {
+  const d = new Date(Number(isoOrMs));
+  const datePart = d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+  const timePart = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  
+  // Extract timezone abbreviation like "GMT+2" from the toString() output
+  const match = d.toString().match(/\(([^)]+)\)$/);
+  const tz = match ? match[1] : '';
+
+  return `${datePart} ${timePart} ${tz ? `(${tz})` : ''}`.trim();
+}
+
 const WINDOW_OPTIONS: (number | "today")[] = ["today", 7, 30, 90];
 
 const CustomBarTooltip = ({ active, payload }: any) => {
@@ -237,7 +249,7 @@ export default function DashboardPage() {
             </p>
             {data?.syncStatus?.lastSyncAt && (
               <span className="text-xs text-neutral-600 bg-neutral-100 border border-neutral-200 dark:text-neutral-300 dark:bg-neutral-800/60 px-2 py-0.5 rounded-full dark:border-neutral-700/50 transition-colors">
-                Last synced: {new Date(Number(data.syncStatus.lastSyncAt)).toLocaleString()}
+                Last synced: {formatLastSynced(data.syncStatus.lastSyncAt)}
               </span>
             )}
           </div>
