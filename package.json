@@ -2,6 +2,10 @@
   "name": "cursor-spend-tracker",
   "version": "0.1.0",
   "private": true,
+  "author": "Cursor",
+  "contributors": [
+    "Natnael Bekele <nathy@Natnaels-MacBook-Pro.local>"
+  ],
   "engines": {
     "node": ">=20.9.0"
   },

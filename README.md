@@ -132,3 +132,7 @@ src/
 prisma/schema.prisma         Setting + UsageEvent tables
 vercel.json                  cron schedule
 ```
+
+## Contributors
+
+- Natnael Bekele
