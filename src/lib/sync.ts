@@ -145,10 +145,12 @@ export async function runSync(options?: { startDate?: number; endDate?: number }
       );
     }
 
-    await setSetting(SETTING_LAST_SYNC_AT, String(Date.now()));
-    await setSetting(SETTING_LAST_SYNC_STATUS, "ok");
-    await setSetting(SETTING_LAST_SYNC_ERROR, "");
-    await setSetting(SETTING_LAST_SYNC_EVENT_COUNT, String(events.length));
+    await Promise.all([
+      setSetting(SETTING_LAST_SYNC_AT, String(Date.now())),
+      setSetting(SETTING_LAST_SYNC_STATUS, "ok"),
+      setSetting(SETTING_LAST_SYNC_ERROR, ""),
+      setSetting(SETTING_LAST_SYNC_EVENT_COUNT, String(events.length))
+    ]);
 
     return { ok: true, eventCount: events.length };
   } catch (err) {
@@ -159,8 +161,10 @@ export async function runSync(options?: { startDate?: number; endDate?: number }
           ? err.message
           : "Unknown sync error.";
 
-    await setSetting(SETTING_LAST_SYNC_STATUS, "error");
-    await setSetting(SETTING_LAST_SYNC_ERROR, message);
+    await Promise.all([
+      setSetting(SETTING_LAST_SYNC_STATUS, "error"),
+      setSetting(SETTING_LAST_SYNC_ERROR, message)
+    ]);
 
     return { ok: false, eventCount: 0, error: message };
   }
@@ -175,20 +179,25 @@ export interface SyncStatus {
 }
 
 export async function getSyncStatus(): Promise<SyncStatus> {
-  const [token, lastSyncAt, lastSyncStatus, lastSyncError, lastSyncEventCount] =
-    await Promise.all([
-      getSetting(SETTING_SESSION_TOKEN),
-      getSetting(SETTING_LAST_SYNC_AT),
-      getSetting(SETTING_LAST_SYNC_STATUS),
-      getSetting(SETTING_LAST_SYNC_ERROR),
-      getSetting(SETTING_LAST_SYNC_EVENT_COUNT),
-    ]);
+  const keys = [
+    SETTING_SESSION_TOKEN,
+    SETTING_LAST_SYNC_AT,
+    SETTING_LAST_SYNC_STATUS,
+    SETTING_LAST_SYNC_ERROR,
+    SETTING_LAST_SYNC_EVENT_COUNT,
+  ];
+  
+  const rows = await prisma.setting.findMany({
+    where: { key: { in: keys } }
+  });
+  
+  const map = new Map(rows.map(r => [r.key, r.value]));
 
   return {
-    hasToken: Boolean(token),
-    lastSyncAt,
-    lastSyncStatus,
-    lastSyncError,
-    lastSyncEventCount,
+    hasToken: Boolean(map.get(SETTING_SESSION_TOKEN)),
+    lastSyncAt: map.get(SETTING_LAST_SYNC_AT) ?? null,
+    lastSyncStatus: map.get(SETTING_LAST_SYNC_STATUS) ?? null,
+    lastSyncError: map.get(SETTING_LAST_SYNC_ERROR) ?? null,
+    lastSyncEventCount: map.get(SETTING_LAST_SYNC_EVENT_COUNT) ?? null,
   };
 }

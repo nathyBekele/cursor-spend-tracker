@@ -132,6 +132,57 @@ const CustomAreaTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
+function DashboardSkeleton() {
+  return (
+    <div className="flex flex-col lg:flex-row gap-6 animate-pulse">
+      {/* Left Column: Stats & Charts */}
+      <div className="flex-1 space-y-6 min-w-0">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/60 dark:bg-neutral-900/30 p-2.5 sm:p-3 h-[72px] flex flex-col justify-center">
+              <div className="h-2.5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
+              <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 h-[364px]">
+          <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded mb-6"></div>
+          <div className="h-[280px] bg-neutral-100 dark:bg-neutral-800/50 rounded"></div>
+        </div>
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 h-[284px]">
+          <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded mb-6"></div>
+          <div className="h-[200px] bg-neutral-100 dark:bg-neutral-800/50 rounded"></div>
+        </div>
+      </div>
+
+      {/* Right Column: Table */}
+      <div className="w-full lg:w-[500px] xl:w-[680px] shrink-0">
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 flex flex-col h-full min-h-[660px]">
+          <div className="p-5 border-b border-neutral-200 dark:border-neutral-800/50">
+            <div className="h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          </div>
+          <div className="p-5 space-y-6">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="flex justify-between items-center">
+                <div className="space-y-2.5">
+                  <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+                  <div className="h-2.5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded sm:hidden"></div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="h-4 w-8 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+                  <div className="h-4 w-12 bg-neutral-200 dark:bg-neutral-700 rounded hidden sm:block"></div>
+                  <div className="h-4 w-12 bg-neutral-200 dark:bg-neutral-700 rounded hidden sm:block"></div>
+                  <div className="h-4 w-16 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DashboardPage() {
   const [days, setDays] = useState<number | "custom" | "today">("today");
   const [customStart, setCustomStart] = useState("");
@@ -396,10 +447,10 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {loading ? (
-        <p className="text-neutral-400 text-sm">Loading…</p>
+      {loading && !data ? (
+        <DashboardSkeleton />
       ) : !data ? null : (
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className={`flex flex-col lg:flex-row gap-6 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
           {/* Left Column: Stats & Charts */}
           <div className="flex-1 space-y-6 min-w-0">
             {/* Unified Stats Row */}

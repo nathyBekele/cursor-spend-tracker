@@ -19,7 +19,11 @@ export async function GET(req: NextRequest) {
   const modelsParam = searchParams.get("models");
   const daysParam = searchParams.get("days");
 
-  const endDate = endParam ? new Date(Number(endParam)) : new Date();
+  // Round current time to nearest 5 minutes for stable cache keys
+  const now = new Date();
+  const stableNow = new Date(Math.floor(now.getTime() / 300000) * 300000);
+  
+  const endDate = endParam ? new Date(Number(endParam)) : stableNow;
   
   let startDate: Date;
   if (startParam) {

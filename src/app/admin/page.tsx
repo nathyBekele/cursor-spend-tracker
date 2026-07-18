@@ -24,6 +24,63 @@ function formatDate(ms: string | null): string {
   return new Date(Number(ms)).toLocaleString();
 }
 
+function AdminSkeleton() {
+  return (
+    <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 animate-pulse">
+      {/* Left Column: Status & Token */}
+      <div className="w-full lg:w-[420px] xl:w-[480px] flex flex-col gap-6 shrink-0">
+        {/* Sync Status Skeleton */}
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
+          </div>
+          <div className="bg-white dark:bg-neutral-950 p-4 rounded-lg border border-neutral-200 dark:border-neutral-800/60 space-y-4 mt-4">
+            <div className="flex justify-between items-center">
+              <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="h-4 w-12 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            </div>
+            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
+              <div className="h-4 w-24 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            </div>
+            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
+              <div className="h-4 w-28 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="h-4 w-16 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Cursor Session Token Skeleton */}
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 flex-1 flex flex-col min-h-[300px]">
+          <div className="h-5 w-48 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
+          <div className="h-4 w-64 bg-neutral-200 dark:bg-neutral-700 rounded mb-4"></div>
+          <div className="flex-1 w-full bg-neutral-100 dark:bg-neutral-950 rounded-lg border border-neutral-200 dark:border-neutral-800/60 mb-4"></div>
+          <div className="h-10 w-24 bg-neutral-200 dark:bg-neutral-700 rounded-lg self-end"></div>
+        </div>
+      </div>
+
+      {/* Right Column: Model Pricing */}
+      <div className="flex-1 rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 flex flex-col h-full overflow-hidden">
+        <div className="h-6 w-32 bg-neutral-200 dark:bg-neutral-700 rounded mb-4"></div>
+        <div className="h-10 w-full bg-neutral-200 dark:bg-neutral-800/60 rounded mb-2"></div>
+        <div className="space-y-4 mt-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="flex items-center gap-4 border-b border-neutral-100 dark:border-neutral-800/50 pb-4">
+              <div className="flex-1 h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="w-16 h-8 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [status, setStatus] = useState<SyncStatus | null>(null);
   const [token, setToken] = useState("");
@@ -43,19 +100,26 @@ export default function AdminPage() {
   const [editingPricing, setEditingPricing] = useState<ModelPricing | null>(null);
   const [pricingSaving, setPricingSaving] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   async function loadStatus() {
-    const res = await fetch("/api/admin/token");
-    const data = await res.json().catch(() => null);
-    if (res.ok) {
-      setStatus(data);
-    } else {
-      setMessage({ text: data?.error ?? `Failed to load status (${res.status})`, isError: true });
-    }
-    
-    // Also load pricing models
-    const pRes = await fetch("/api/admin/pricing");
-    if (pRes.ok) {
-      setPricingModels(await pRes.json());
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/token");
+      const data = await res.json().catch(() => null);
+      if (res.ok) {
+        setStatus(data);
+      } else {
+        setMessage({ text: data?.error ?? `Failed to load status (${res.status})`, isError: true });
+      }
+      
+      // Also load pricing models
+      const pRes = await fetch("/api/admin/pricing");
+      if (pRes.ok) {
+        setPricingModels(await pRes.json());
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -151,9 +215,12 @@ export default function AdminPage() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
-        {/* Left Column: Status & Token */}
-        <div className="w-full lg:w-[420px] xl:w-[480px] flex flex-col gap-6 shrink-0 overflow-y-auto custom-scrollbar pb-4 pr-1">
+      {loading && !status ? (
+        <AdminSkeleton />
+      ) : (
+        <div className={`flex flex-col lg:flex-row gap-6 flex-1 min-h-0 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+          {/* Left Column: Status & Token */}
+          <div className="w-full lg:w-[420px] xl:w-[480px] flex flex-col gap-6 shrink-0 overflow-y-auto custom-scrollbar pb-4 pr-1">
           <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors shadow-sm">
         <div className="flex items-center justify-between">
           <h2 className="font-medium text-neutral-900 dark:text-white transition-colors">Sync status</h2>
@@ -341,7 +408,8 @@ export default function AdminPage() {
         </div>
       </section>
         </div>
-      </div>
+        </div>
+      )}
 
       {message && (
         <div className={`fixed bottom-6 right-6 max-w-sm p-4 rounded-xl shadow-2xl border animate-in slide-in-from-bottom-8 fade-in duration-300 z-50 flex items-start gap-3 transition-colors ${

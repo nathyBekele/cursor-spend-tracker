@@ -38,6 +38,7 @@ model UsageEvent {
 
   @@index([occurredAt])
   @@index([model])
+  @@index([model, occurredAt])
 }
 
 // Stores per-million token pricing for models used when cost estimation is needed

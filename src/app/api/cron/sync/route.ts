@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runSync } from "@/lib/sync";
+import { revalidateTag } from "next/cache";
 
 // Called by Vercel Cron (see vercel.json). This path is deliberately excluded
 // from the admin-session gate in proxy.ts, so it authenticates itself with a
@@ -13,5 +14,16 @@ export async function GET(req: NextRequest) {
   }
 
   const result = await runSync();
+  
+  if (result.ok) {
+    // Purge cached data on successful sync
+    // @ts-ignore
+    revalidateTag('dashboard-summary');
+    // @ts-ignore
+    revalidateTag('admin-status');
+    // @ts-ignore
+    revalidateTag('pricing');
+  }
+
   return NextResponse.json(result, { status: result.ok ? 200 : 502 });
 }
