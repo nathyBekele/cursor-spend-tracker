@@ -39,3 +39,16 @@ model UsageEvent {
   @@index([occurredAt])
   @@index([model])
 }
+
+// Stores per-million token pricing for models used when cost estimation is needed
+// (i.e. when Cursor's usage API doesn't include charged amounts)
+model ModelPricing {
+  modelName      String   @id
+  inputPerM      Float
+  outputPerM     Float
+  cacheWritePerM Float
+  cacheReadPerM  Float
+  isVerified     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

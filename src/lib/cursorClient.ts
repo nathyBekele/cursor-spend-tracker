@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { estimateCostCents } from "./pricing";
+import { findRate } from "./pricing";
 
 /**
  * Client for Cursor's UNDOCUMENTED personal dashboard usage API.
@@ -138,7 +138,11 @@ function stableId(raw: Record<string, unknown>, index: number): string {
   return hash.digest("hex");
 }
 
-export function mapRawEvent(raw: Record<string, unknown>, index: number): MappedUsageEvent {
+export function mapRawEvent(
+  raw: Record<string, unknown>,
+  index: number,
+  pricingMap: Map<string, { inputPerM: number; outputPerM: number; cacheWritePerM: number; cacheReadPerM: number }>
+): MappedUsageEvent {
   const timestampRaw = pick(raw, "timestamp", "createdAt", "eventTimestamp");
   const timestampMs = num(timestampRaw);
   const occurredAt = timestampMs > 0 ? new Date(timestampMs) : new Date();
@@ -166,12 +170,16 @@ export function mapRawEvent(raw: Record<string, unknown>, index: number): Mapped
     modelCostCents = explicitModelCostCents;
     costSource = "cursor";
   } else {
-    modelCostCents = estimateCostCents(model, {
-      inputTokens,
-      outputTokens,
-      cacheWriteTokens,
-      cacheReadTokens,
-    });
+    let rate = pricingMap.get(model);
+    if (!rate) {
+      rate = findRate(model); // fallback to hardcoded if not in DB yet
+    }
+    const dollars =
+      (inputTokens / 1_000_000) * rate.inputPerM +
+      (outputTokens / 1_000_000) * rate.outputPerM +
+      (cacheWriteTokens / 1_000_000) * rate.cacheWritePerM +
+      (cacheReadTokens / 1_000_000) * rate.cacheReadPerM;
+    modelCostCents = dollars * 100;
     costSource = "estimated";
   }
 
@@ -212,7 +220,8 @@ interface FetchAllOptions {
  */
 export async function fetchAllUsageEvents(
   sessionToken: string,
-  { startDate, endDate, pageSize = 100, maxPages = 500 }: FetchAllOptions
+  { startDate, endDate, pageSize = 100, maxPages = 500 }: FetchAllOptions,
+  pricingMap: Map<string, { inputPerM: number; outputPerM: number; cacheWritePerM: number; cacheReadPerM: number }>
 ): Promise<MappedUsageEvent[]> {
   const all: MappedUsageEvent[] = [];
 
@@ -226,7 +235,7 @@ export async function fetchAllUsageEvents(
     const rawEvents = extractEventsArray(json);
     if (rawEvents.length === 0) break;
 
-    rawEvents.forEach((raw, i) => all.push(mapRawEvent(raw, page * pageSize + i)));
+    rawEvents.forEach((raw, i) => all.push(mapRawEvent(raw, page * pageSize + i, pricingMap)));
 
     if (rawEvents.length < pageSize) break; // last page
   }

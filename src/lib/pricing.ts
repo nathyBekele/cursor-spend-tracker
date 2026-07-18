@@ -21,6 +21,41 @@ interface ModelRate {
 
 const RATES: ModelRate[] = [
   {
+    match: /gemini-3\.5-flash/i,
+    inputPerM: 1.5,
+    outputPerM: 9.0,
+    cacheWritePerM: 1.0,
+    cacheReadPerM: 0.15,
+  },
+  {
+    match: /gemini-3\.1-pro/i,
+    inputPerM: 2.0,
+    outputPerM: 12.0,
+    cacheWritePerM: 4.5,
+    cacheReadPerM: 0.2,
+  },
+  {
+    match: /gemini-3-flash/i,
+    inputPerM: 0.5,
+    outputPerM: 3.0,
+    cacheWritePerM: 1.0,
+    cacheReadPerM: 0.05,
+  },
+  {
+    match: /gemini/i,
+    inputPerM: 1.5,
+    outputPerM: 9.0,
+    cacheWritePerM: 1.0,
+    cacheReadPerM: 0.15,
+  },
+  {
+    match: /sonnet-5/i,
+    inputPerM: 2,
+    outputPerM: 10,
+    cacheWritePerM: 2.5,
+    cacheReadPerM: 0.2,
+  },
+  {
     match: /opus/i,
     inputPerM: 5,
     outputPerM: 25,
@@ -51,7 +86,7 @@ export function findRate(model: string): ModelRate {
 }
 
 export function isClaudeModel(model: string): boolean {
-  return /claude/i.test(model) || RATES.some((r) => r.match.test(model));
+  return /claude|gemini/i.test(model) || RATES.some((r) => r.match.test(model));
 }
 
 /**
