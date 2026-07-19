@@ -93,7 +93,7 @@ const CustomBarTooltip = ({ active, payload }: any) => {
     const data = payload[0].payload;
     return (
       <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-xl p-3 text-sm min-w-[180px] transition-colors">
-        <div className="text-neutral-900 dark:text-neutral-200 font-medium mb-3 border-b border-neutral-100 dark:border-neutral-800 pb-2 transition-colors">{data.model}</div>
+        <div className="text-neutral-900 dark:text-neutral-200 font-medium mb-3 border-b border-neutral-100 dark:border-neutral-700 pb-2 transition-colors">{data.model}</div>
         <div className="space-y-1.5">
           <div className="flex justify-between items-center">
             <span className="text-neutral-500 dark:text-neutral-400 text-xs">Cost</span>
@@ -114,7 +114,7 @@ const CustomAreaTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-xl p-3 text-sm min-w-[160px] transition-colors">
-        <div className="text-neutral-500 dark:text-neutral-400 text-xs mb-3 border-b border-neutral-100 dark:border-neutral-800 pb-2 transition-colors">{label}</div>
+        <div className="text-neutral-500 dark:text-neutral-400 text-xs mb-3 border-b border-neutral-100 dark:border-neutral-700 pb-2 transition-colors">{label}</div>
         <div className="space-y-1.5">
           {payload.map((p: any) => (
             <div key={p.dataKey} className="flex justify-between items-center">
@@ -134,34 +134,34 @@ const CustomAreaTooltip = ({ active, payload, label }: any) => {
 
 function DashboardSkeleton() {
   return (
-    <div className="flex flex-col lg:flex-row gap-6 animate-pulse">
+    <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-12 gap-4 xl:gap-6 animate-pulse">
       {/* Left Column: Stats & Charts */}
-      <div className="flex-1 space-y-6 min-w-0">
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+      <div className="xl:col-span-6 2xl:col-span-7 flex flex-col gap-4 xl:gap-6 min-w-0 h-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-3 shrink-0">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/60 dark:bg-neutral-900/30 p-2.5 sm:p-3 h-[72px] flex flex-col justify-center">
+            <div key={i} className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/30 p-2.5 sm:p-3 h-[72px] flex flex-col justify-center">
               <div className="h-2.5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
               <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 h-[364px]">
-          <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded mb-6"></div>
-          <div className="h-[280px] bg-neutral-100 dark:bg-neutral-800/50 rounded"></div>
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 p-4 sm:p-5 flex-1 min-h-[160px] flex flex-col">
+          <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded mb-4 shrink-0"></div>
+          <div className="flex-1 bg-neutral-100 dark:bg-neutral-800/50 rounded min-h-0"></div>
         </div>
-        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 h-[284px]">
-          <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded mb-6"></div>
-          <div className="h-[200px] bg-neutral-100 dark:bg-neutral-800/50 rounded"></div>
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 p-4 sm:p-5 flex-1 min-h-[160px] flex flex-col">
+          <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded mb-4 shrink-0"></div>
+          <div className="flex-1 bg-neutral-100 dark:bg-neutral-800/50 rounded min-h-0"></div>
         </div>
       </div>
 
       {/* Right Column: Table */}
-      <div className="w-full lg:w-[500px] xl:w-[680px] shrink-0">
-        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 flex flex-col h-full min-h-[660px]">
-          <div className="p-5 border-b border-neutral-200 dark:border-neutral-800/50">
+      <div className="xl:col-span-6 2xl:col-span-5 min-w-0 h-[500px] xl:h-auto xl:min-h-0">
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 flex flex-col h-full w-full min-w-0">
+          <div className="p-4 sm:p-5 border-b border-neutral-200 dark:border-neutral-700 shrink-0">
             <div className="h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
           </div>
-          <div className="p-5 space-y-6">
+          <div className="p-4 sm:p-5 space-y-6 flex-1 overflow-hidden">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="flex justify-between items-center">
                 <div className="space-y-2.5">
@@ -183,12 +183,21 @@ function DashboardSkeleton() {
   );
 }
 
+interface ModelPricing {
+  modelName: string;
+  inputPerM: number;
+  outputPerM: number;
+  cacheWritePerM: number;
+  cacheReadPerM: number;
+  isVerified: boolean;
+}
+
 export default function DashboardPage() {
   const [days, setDays] = useState<number | "custom" | "today">("today");
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
-  const [allModels, setAllModels] = useState<{modelName: string}[]>([]);
+  const [allModels, setAllModels] = useState<ModelPricing[]>([]);
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
   const [data, setData] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
@@ -290,11 +299,10 @@ export default function DashboardPage() {
     data && (!data.syncStatus?.hasToken || data.syncStatus?.lastSyncStatus === "error");
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+    <div className="flex flex-col gap-6 xl:h-[calc(100vh-7rem)] min-h-[600px] xl:min-h-0">
+      <div className="flex items-center justify-between flex-wrap gap-4 shrink-0">
         <div>
-          <h1 className="text-xl font-semibold text-neutral-900 dark:text-white transition-colors">Spend Dashboard</h1>
-          <div className="flex items-center gap-3 mt-1">
+          <div className="flex items-center gap-3">
             <p className="text-sm text-neutral-600 dark:text-neutral-300 transition-colors">
               Model spend tracked from your Cursor BYOK usage.
             </p>
@@ -305,7 +313,7 @@ export default function DashboardPage() {
             )}
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-3 bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800/80 rounded-lg p-1.5 transition-colors">
+        <div className="flex flex-wrap items-center gap-3 bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-700 rounded-lg p-1.5 transition-colors">
           {days === "custom" && (
             <div className="flex items-center gap-2 px-1">
               <input
@@ -343,7 +351,7 @@ export default function DashboardPage() {
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setModelDropdownOpen(false)} />
                 <div className="absolute top-full right-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-xl z-50 py-1 transition-colors custom-scrollbar">
-                  <div className="px-2 py-1.5 border-b border-neutral-100 dark:border-neutral-800 mb-1">
+                  <div className="px-2 py-1.5 border-b border-neutral-100 dark:border-neutral-700 mb-1">
                     <button
                       onClick={() => {
                         setSelectedModels([]);
@@ -387,7 +395,7 @@ export default function DashboardPage() {
 
           <div className="h-4 w-px bg-neutral-200 dark:bg-neutral-700 mx-1"></div>
 
-          <div className="flex rounded-md border border-neutral-200 dark:border-neutral-800 overflow-hidden transition-colors">
+          <div className="flex rounded-md border border-neutral-200 dark:border-neutral-700 overflow-hidden transition-colors">
             {WINDOW_OPTIONS.map((opt) => (
               <button
                 key={opt}
@@ -450,11 +458,11 @@ export default function DashboardPage() {
       {loading && !data ? (
         <DashboardSkeleton />
       ) : !data ? null : (
-        <div className={`flex flex-col lg:flex-row gap-6 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-12 gap-4 xl:gap-6 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
           {/* Left Column: Stats & Charts */}
-          <div className="flex-1 space-y-6 min-w-0">
+          <div className="xl:col-span-6 2xl:col-span-7 flex flex-col gap-4 xl:gap-6 min-w-0 h-full">
             {/* Unified Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-3">
               <MiniStatCard label="Total Cost" value={dollars(data.totals.modelCostCents + data.totals.cursorFeeCents)} accent />
               <MiniStatCard label="Requests" value={String(data.totals.eventCount)} />
               <MiniStatCard label="Input Tokens" value={formatTokens(data.totals.inputTokens)} />
@@ -464,108 +472,114 @@ export default function DashboardPage() {
             </div>
 
             {/* Spend by model chart */}
-            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 transition-colors shadow-sm">
-              <h2 className="text-base font-semibold text-neutral-900 dark:text-white mb-6 transition-colors">Spend by model</h2>
-              <div className="h-[280px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={modelChartData} layout="vertical" margin={{ top: 0, right: 60, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-neutral-200 dark:text-neutral-800" horizontal={true} vertical={false} />
-                    <XAxis type="number" stroke="currentColor" className="text-neutral-500 dark:text-neutral-400" fontSize={12} tickFormatter={(v) => `$${v}`} axisLine={false} tickLine={false} />
-                    <YAxis
-                      dataKey="model"
-                      type="category"
-                      width={220}
-                      stroke="currentColor"
-                      className="text-neutral-600 dark:text-neutral-300"
-                      fontSize={12}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <Tooltip content={<CustomBarTooltip />} cursor={{ fill: 'currentColor', className: 'text-neutral-100 dark:text-neutral-800', opacity: 0.5 }} />
-                    <Bar dataKey="modelCostDollars" fill="#818cf8" radius={[0, 4, 4, 0]} barSize={24}>
-                      <LabelList
-                        dataKey="modelCostDollars"
-                        position="right"
-                        fill="currentColor"
-                        className="text-neutral-600 dark:text-neutral-300 font-medium"
-                        fontSize={12}
-                        formatter={(v: number) => `$${v.toFixed(2)}`}
+            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 p-4 sm:p-5 transition-colors shadow-sm flex flex-col flex-1 min-h-[250px] xl:min-h-[160px]">
+              <h2 className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white mb-3 sm:mb-4 transition-colors shrink-0">Spend by model</h2>
+              <div className="flex-1 min-h-0 relative">
+                <div className="absolute inset-0">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={modelChartData} layout="vertical" margin={{ top: 0, right: 60, left: 0, bottom: 20 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-neutral-200 dark:text-neutral-700" horizontal={true} vertical={false} />
+                      <XAxis type="number" stroke="currentColor" className="text-neutral-500 dark:text-neutral-400" fontSize={11} tickFormatter={(v) => `$${v}`} axisLine={false} tickLine={false} />
+                      <YAxis
+                        dataKey="model"
+                        type="category"
+                        width={240}
+                        stroke="currentColor"
+                        className="text-neutral-600 dark:text-neutral-300"
+                        fontSize={11}
+                        axisLine={true}
+                        tickLine={false}
                       />
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                      <Tooltip content={<CustomBarTooltip />} cursor={{ fill: 'currentColor', className: 'text-neutral-100 dark:text-neutral-700/50', opacity: 0.5 }} />
+                      <Bar dataKey="modelCostDollars" fill="#818cf8" radius={[0, 4, 4, 0]} barSize={20}>
+                        <LabelList
+                          dataKey="modelCostDollars"
+                          position="right"
+                          fill="currentColor"
+                          className="text-neutral-600 dark:text-neutral-300 font-medium"
+                          fontSize={11}
+                          formatter={(v: number) => `$${v.toFixed(2)}`}
+                        />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </section>
 
             {/* Daily spend chart */}
-            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 p-5 transition-colors shadow-sm">
-              <h2 className="text-base font-semibold text-neutral-900 dark:text-white mb-6 transition-colors">Daily spend</h2>
-              <div className="h-[200px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={chartData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-neutral-200 dark:text-neutral-800" vertical={false} />
-                    <XAxis dataKey="label" stroke="currentColor" className="text-neutral-500 dark:text-neutral-400" fontSize={12} axisLine={false} tickLine={false} dy={10} />
-                    <YAxis
-                      stroke="currentColor"
-                      className="text-neutral-500 dark:text-neutral-400"
-                      fontSize={12}
-                      tickFormatter={(v) => `$${v}`}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <Tooltip content={<CustomAreaTooltip />} />
-                    <Area
-                      type="monotone"
-                      dataKey="modelCostDollars"
-                      name="Model cost"
-                      stackId="1"
-                      stroke="#818cf8"
-                      strokeWidth={2}
-                      fill="#818cf8"
-                      fillOpacity={0.2}
-                      activeDot={{ r: 4, fill: '#818cf8', stroke: '#fff', strokeWidth: 1 }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="cursorFeeDollars"
-                      name="Cursor fee"
-                      stackId="1"
-                      stroke="#f472b6"
-                      strokeWidth={2}
-                      fill="#f472b6"
-                      fillOpacity={0.2}
-                      activeDot={{ r: 4, fill: '#f472b6', stroke: '#fff', strokeWidth: 1 }}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 p-4 sm:p-5 transition-colors shadow-sm flex flex-col flex-1 min-h-[250px] xl:min-h-[160px]">
+              <h2 className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white mb-3 sm:mb-4 transition-colors shrink-0">Daily spend</h2>
+              <div className="flex-1 min-h-0 relative">
+                <div className="absolute inset-0">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={chartData} margin={{ top: 10, right: 0, left: -20, bottom: 15 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-neutral-200 dark:text-neutral-700" vertical={false} />
+                      <XAxis dataKey="label" stroke="currentColor" className="text-neutral-500 dark:text-neutral-400" fontSize={11} axisLine={false} tickLine={false} dy={10} />
+                      <YAxis
+                        stroke="currentColor"
+                        className="text-neutral-500 dark:text-neutral-400"
+                        fontSize={11}
+                        tickFormatter={(v) => `$${v}`}
+                        axisLine={false}
+                        tickLine={false}
+                      />
+                      <Tooltip content={<CustomAreaTooltip />} />
+                      <Area
+                        type="monotone"
+                        dataKey="modelCostDollars"
+                        name="Model cost"
+                        stackId="1"
+                        stroke="#818cf8"
+                        strokeWidth={2}
+                        fill="#818cf8"
+                        fillOpacity={0.2}
+                        activeDot={{ r: 4, fill: '#818cf8', stroke: '#fff', strokeWidth: 1 }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="cursorFeeDollars"
+                        name="Cursor fee"
+                        stackId="1"
+                        stroke="#f472b6"
+                        strokeWidth={2}
+                        fill="#f472b6"
+                        fillOpacity={0.2}
+                        activeDot={{ r: 4, fill: '#f472b6', stroke: '#fff', strokeWidth: 1 }}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </section>
           </div>
 
-          {/* Right Column: Table */}
-          <div className="w-full lg:w-[500px] xl:w-[680px] shrink-0">
-            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/80 dark:bg-neutral-900/40 flex flex-col h-full max-h-[660px] transition-colors shadow-sm">
-              <div className="p-5 border-b border-neutral-200 dark:border-neutral-800/50 flex-shrink-0 transition-colors">
+      {/* Right Column: Table */}
+      <div className="xl:col-span-6 2xl:col-span-5 min-w-0 h-[500px] xl:h-auto xl:min-h-0">
+            <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/40 flex flex-col h-full w-full min-w-0 transition-colors shadow-sm">
+              <div className="p-4 sm:p-5 border-b border-neutral-200 dark:border-neutral-700 flex-shrink-0 transition-colors">
                 <h2 className="text-base font-semibold text-neutral-900 dark:text-white transition-colors">By model breakdown</h2>
               </div>
-              <div className="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
-                <table className="w-full text-[13px] min-w-[500px]">
+              <div className="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar min-w-0">
+                <table className="w-full text-[13px]">
                   <thead className="sticky top-0 bg-neutral-50/95 dark:bg-neutral-900/95 backdrop-blur z-10 transition-colors">
-                    <tr className="text-left text-neutral-600 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-800/50 whitespace-nowrap transition-colors">
+                    <tr className="text-left text-neutral-600 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 whitespace-nowrap transition-colors">
                       <th className="py-3 px-4 font-semibold">Model</th>
                       <th className="py-3 px-3 font-semibold text-right">Reqs</th>
-                      <th className="py-3 px-3 font-semibold text-right hidden sm:table-cell">Token (IN/OUT)</th>
-                      <th className="py-3 px-3 font-semibold text-right hidden sm:table-cell">Cache (W/R)</th>
+                      <th className="py-3 px-3 font-semibold text-right">Token (IN/OUT)</th>
+                      <th className="py-3 px-3 font-semibold text-right">Cache (W/R)</th>
                       <th className="py-3 px-4 font-semibold text-right">Cost</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800/30 transition-colors">
-                    {data.byModel.map((m) => (
+                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700 transition-colors">
+                    {data.byModel.map((m) => {
+                      const pricing = allModels.find((p) => p.modelName === m.model);
+                      return (
                       <tr key={m.model} className="group hover:bg-neutral-100 dark:hover:bg-white/[0.02] transition-colors">
                         <td className="py-3 px-4">
                           <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors font-medium whitespace-nowrap" title={m.model}>
+                              <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors font-medium truncate max-w-[120px] sm:max-w-[150px] md:max-w-[180px] xl:max-w-[150px] 2xl:max-w-[200px]" title={m.model}>
                                 {m.model}
                               </span>
                               {m.isVerified === false && (
@@ -576,55 +590,67 @@ export default function DashboardPage() {
                                   Unverified
                                 </span>
                               )}
-                            </div>
-                            {/* Mobile token view */}
-                            <div className="text-[11px] text-neutral-600 dark:text-neutral-400 flex flex-wrap gap-2 sm:hidden whitespace-nowrap mt-1.5 transition-colors">
-                              <span className="flex items-center gap-1 font-medium bg-neutral-100 dark:bg-neutral-800/50 px-1.5 py-0.5 rounded" title="Input Tokens">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M12 3v14"/><path d="m5 10 7 7 7-7"/><path d="M3 21h18"/></svg>
-                                {formatTokens(m.inputTokens)}
-                              </span>
-                              <span className="flex items-center gap-1 font-medium bg-neutral-100 dark:bg-neutral-800/50 px-1.5 py-0.5 rounded" title="Output Tokens">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500"><path d="M12 21V7"/><path d="m5 14 7-7 7 7"/><path d="M3 3h18"/></svg>
-                                {formatTokens(m.outputTokens)}
-                              </span>
-                              <span className="flex items-center gap-1 font-medium bg-neutral-100 dark:bg-neutral-800/50 px-1.5 py-0.5 rounded" title="Cache Write Tokens">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500"><path d="M12 3v14"/><path d="m5 10 7 7 7-7"/><path d="M3 21h18"/></svg>
-                                {formatTokens(m.cacheWriteTokens)}
-                              </span>
-                              <span className="flex items-center gap-1 font-medium bg-neutral-100 dark:bg-neutral-800/50 px-1.5 py-0.5 rounded" title="Cache Read Tokens">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-purple-500"><path d="M12 21V7"/><path d="m5 14 7-7 7 7"/><path d="M3 3h18"/></svg>
-                                {formatTokens(m.cacheReadTokens)}
-                              </span>
+                              
+                              {pricing && (
+                                <div className="relative flex items-center group/tooltip">
+                                  <svg className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 cursor-help transition-colors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                  </svg>
+                                  
+                                  <div className="absolute top-1/2 -translate-y-1/2 left-full ml-2 hidden group-hover/tooltip:block w-[260px] p-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs rounded-lg shadow-xl z-50">
+                                    <div className="font-semibold mb-2 text-white dark:text-neutral-900 border-b border-white/20 dark:border-neutral-900/10 pb-1.5 break-words leading-tight">
+                                      {m.model}
+                                      <div className="text-[10px] font-normal opacity-75 mt-0.5">Pricing (per 1M tokens)</div>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                      <div className="flex justify-between">
+                                        <span className="text-white/70 dark:text-neutral-600">Input</span>
+                                        <span className="font-medium">${pricing.inputPerM}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-white/70 dark:text-neutral-600">Output</span>
+                                        <span className="font-medium">${pricing.outputPerM}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-white/70 dark:text-neutral-600">Cache Write</span>
+                                        <span className="font-medium">${pricing.cacheWritePerM}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-white/70 dark:text-neutral-600">Cache Read</span>
+                                        <span className="font-medium">${pricing.cacheReadPerM}</span>
+                                      </div>
+                                    </div>
+                                    <div className="absolute top-1/2 -left-1.5 -translate-y-1/2 border-[6px] border-transparent border-r-neutral-900 dark:border-r-white"></div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </td>
                         <td className="py-3 px-3 text-right text-neutral-900 dark:text-neutral-100 font-medium align-middle whitespace-nowrap transition-colors">
                           {m.eventCount.toLocaleString()}
                         </td>
-                        {/* Desktop token view */}
-                        <td className="py-3 px-3 text-right align-middle hidden sm:table-cell whitespace-nowrap transition-colors">
-                          <div className="flex items-center justify-end gap-1.5 text-[11px] font-medium text-neutral-800 dark:text-neutral-200">
-                            <span className="flex items-center gap-1" title="Input Tokens">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M12 3v14"/><path d="m5 10 7 7 7-7"/><path d="M3 21h18"/></svg>
+                            {/* Desktop token view */}
+                        <td className="py-3 px-3 text-right align-middle whitespace-nowrap transition-colors">
+                          <div className="flex items-center justify-end gap-1 text-[11px] font-medium text-neutral-800 dark:text-neutral-200">
+                            <span className="text-blue-600 dark:text-blue-400" title="Input Tokens">
                               {formatTokens(m.inputTokens)}
                             </span>
-                            <span className="text-neutral-400 dark:text-neutral-600 mx-0.5">/</span>
-                            <span className="flex items-center gap-1" title="Output Tokens">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500"><path d="M12 21V7"/><path d="m5 14 7-7 7 7"/><path d="M3 3h18"/></svg>
+                            <span className="text-neutral-300 dark:text-neutral-700">/</span>
+                            <span className="text-emerald-600 dark:text-emerald-400" title="Output Tokens">
                               {formatTokens(m.outputTokens)}
                             </span>
                           </div>
                         </td>
-                        {/* Desktop cache view */}
-                        <td className="py-3 px-3 text-right align-middle hidden sm:table-cell whitespace-nowrap transition-colors">
-                          <div className="flex items-center justify-end gap-1.5 text-[11px] font-medium text-neutral-800 dark:text-neutral-200">
-                            <span className="flex items-center gap-1" title="Cache Write Tokens">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500"><path d="M12 3v14"/><path d="m5 10 7 7 7-7"/><path d="M3 21h18"/></svg>
+                        <td className="py-3 px-3 text-right align-middle whitespace-nowrap transition-colors">
+                          <div className="flex items-center justify-end gap-1 text-[11px] font-medium text-neutral-800 dark:text-neutral-200">
+                            <span className="text-amber-600 dark:text-amber-400" title="Cache Write Tokens">
                               {formatTokens(m.cacheWriteTokens)}
                             </span>
-                            <span className="text-neutral-400 dark:text-neutral-600 mx-0.5">/</span>
-                            <span className="flex items-center gap-1" title="Cache Read Tokens">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-purple-500"><path d="M12 21V7"/><path d="m5 14 7-7 7 7"/><path d="M3 3h18"/></svg>
+                            <span className="text-neutral-300 dark:text-neutral-700">/</span>
+                            <span className="text-purple-600 dark:text-purple-400" title="Cache Read Tokens">
                               {formatTokens(m.cacheReadTokens)}
                             </span>
                           </div>
@@ -635,7 +661,8 @@ export default function DashboardPage() {
                           </span>
                         </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                     {data.byModel.length === 0 && (
                       <tr>
                         <td colSpan={5} className="py-12 text-center text-neutral-500 text-sm">
@@ -644,6 +671,49 @@ export default function DashboardPage() {
                       </tr>
                     )}
                   </tbody>
+                  <tfoot className="bg-neutral-100/90 dark:bg-neutral-800/90 border-t-2 border-neutral-300 dark:border-neutral-700 transition-colors sticky bottom-0 backdrop-blur-md z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+                    {data.byModel.length > 0 && (
+                      <tr className="text-left font-semibold">
+                        <td className="py-3 px-4 text-neutral-900 dark:text-white">
+                          <div className="flex flex-col gap-1">
+                            <span className="whitespace-nowrap font-bold">Total</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-3 text-right text-neutral-900 dark:text-white align-middle whitespace-nowrap">
+                          {data.totals.eventCount.toLocaleString()}
+                        </td>
+                        {/* Desktop token view */}
+                        <td className="py-3 px-3 text-right align-middle whitespace-nowrap">
+                          <div className="flex items-center justify-end gap-1 text-[11px] font-medium text-neutral-900 dark:text-white">
+                            <span className="text-blue-600 dark:text-blue-400" title="Total Input Tokens">
+                              {formatTokens(data.totals.inputTokens)}
+                            </span>
+                            <span className="text-neutral-300 dark:text-neutral-700">/</span>
+                            <span className="text-emerald-600 dark:text-emerald-400" title="Total Output Tokens">
+                              {formatTokens(data.totals.outputTokens)}
+                            </span>
+                          </div>
+                        </td>
+                        {/* Desktop cache view */}
+                        <td className="py-3 px-3 text-right align-middle whitespace-nowrap">
+                          <div className="flex items-center justify-end gap-1 text-[11px] font-medium text-neutral-900 dark:text-white">
+                            <span className="text-amber-600 dark:text-amber-400" title="Total Cache Write Tokens">
+                              {formatTokens(data.totals.cacheWriteTokens)}
+                            </span>
+                            <span className="text-neutral-300 dark:text-neutral-700">/</span>
+                            <span className="text-purple-600 dark:text-purple-400" title="Total Cache Read Tokens">
+                              {formatTokens(data.totals.cacheReadTokens)}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-right align-middle whitespace-nowrap">
+                          <span className="text-emerald-700 dark:text-emerald-400 text-[15px] font-bold">
+                            {dollars(data.totals.modelCostCents)}
+                          </span>
+                        </td>
+                      </tr>
+                    )}
+                  </tfoot>
                 </table>
               </div>
             </section>
@@ -675,7 +745,7 @@ export default function DashboardPage() {
 
 function MiniStatCard({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800/60 dark:bg-neutral-900/30 p-2.5 sm:p-3 flex flex-col justify-center transition-colors shadow-sm">
+    <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/30 p-2.5 sm:p-3 flex flex-col justify-center transition-colors shadow-sm">
       <div className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium whitespace-nowrap overflow-hidden text-ellipsis">{label}</div>
       <div className={`text-base sm:text-lg font-bold mt-1 ${accent ? "text-emerald-600 dark:text-emerald-400" : "text-neutral-900 dark:text-neutral-100"}`}>
         {value}

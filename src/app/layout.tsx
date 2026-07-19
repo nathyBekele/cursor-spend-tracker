@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors">
         <Providers>
           <Nav />
-          <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 py-8 sm:px-6 lg:px-8">
+          <main className="flex-1 w-full max-w-[1720px] mx-auto px-4 pt-4 pb-8 sm:px-6 lg:px-8">
             {children}
           </main>
         </Providers>

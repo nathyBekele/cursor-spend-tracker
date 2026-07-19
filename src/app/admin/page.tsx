@@ -26,25 +26,25 @@ function formatDate(ms: string | null): string {
 
 function AdminSkeleton() {
   return (
-    <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 animate-pulse">
+    <div className="flex flex-col xl:flex-row gap-6 flex-1 min-h-0 animate-pulse">
       {/* Left Column: Status & Token */}
-      <div className="w-full lg:w-[420px] xl:w-[480px] flex flex-col gap-6 shrink-0">
+      <div className="w-full xl:w-[480px] flex flex-col gap-6 shrink-0">
         {/* Sync Status Skeleton */}
-        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4">
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
           </div>
-          <div className="bg-white dark:bg-neutral-950 p-4 rounded-lg border border-neutral-200 dark:border-neutral-800/60 space-y-4 mt-4">
+          <div className="bg-white dark:bg-neutral-950 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 space-y-4 mt-4">
             <div className="flex justify-between items-center">
               <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
               <div className="h-4 w-12 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             </div>
-            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
+            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-700">
               <div className="h-4 w-24 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
               <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             </div>
-            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
+            <div className="flex justify-between items-center pt-3 border-t border-neutral-100 dark:border-neutral-700">
               <div className="h-4 w-28 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
               <div className="h-4 w-16 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             </div>
@@ -52,21 +52,21 @@ function AdminSkeleton() {
         </div>
 
         {/* Cursor Session Token Skeleton */}
-        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 flex-1 flex flex-col min-h-[300px]">
+        <div className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 flex-1 flex flex-col min-h-[300px]">
           <div className="h-5 w-48 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
           <div className="h-4 w-64 bg-neutral-200 dark:bg-neutral-700 rounded mb-4"></div>
-          <div className="flex-1 w-full bg-neutral-100 dark:bg-neutral-950 rounded-lg border border-neutral-200 dark:border-neutral-800/60 mb-4"></div>
+          <div className="flex-1 w-full bg-neutral-100 dark:bg-neutral-950 rounded-lg border border-neutral-200 dark:border-neutral-700 mb-4"></div>
           <div className="h-10 w-24 bg-neutral-200 dark:bg-neutral-700 rounded-lg self-end"></div>
         </div>
       </div>
 
       {/* Right Column: Model Pricing */}
-      <div className="flex-1 rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 flex flex-col h-full overflow-hidden">
         <div className="h-6 w-32 bg-neutral-200 dark:bg-neutral-700 rounded mb-4"></div>
         <div className="h-10 w-full bg-neutral-200 dark:bg-neutral-800/60 rounded mb-2"></div>
         <div className="space-y-4 mt-6">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex items-center gap-4 border-b border-neutral-100 dark:border-neutral-800/50 pb-4">
+            <div key={i} className="flex items-center gap-4 border-b border-neutral-100 dark:border-neutral-700 pb-4">
               <div className="flex-1 h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
               <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
               <div className="w-20 h-5 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
@@ -207,10 +207,9 @@ export default function AdminPage() {
     );
 
   return (
-    <div className="space-y-6 flex flex-col h-[calc(100vh-8rem)] min-h-[600px]">
+    <div className="space-y-6 flex flex-col xl:h-[calc(100vh-7rem)] min-h-[600px] xl:min-h-0">
       <div>
-        <h1 className="text-xl font-semibold text-neutral-900 dark:text-white transition-colors">Admin</h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 transition-colors">
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors">
           Manage the Cursor session token used to pull usage data, and trigger manual syncs.
         </p>
       </div>
@@ -218,10 +217,10 @@ export default function AdminPage() {
       {loading && !status ? (
         <AdminSkeleton />
       ) : (
-        <div className={`flex flex-col lg:flex-row gap-6 flex-1 min-h-0 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`flex flex-col xl:flex-row gap-6 flex-1 min-h-0 transition-opacity duration-300 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
           {/* Left Column: Status & Token */}
-          <div className="w-full lg:w-[420px] xl:w-[480px] flex flex-col gap-6 shrink-0 overflow-y-auto custom-scrollbar pb-4 pr-1">
-          <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors shadow-sm">
+          <div className="w-full xl:w-[480px] flex flex-col gap-6 shrink-0 xl:overflow-y-auto custom-scrollbar xl:pb-4 xl:pr-1 min-h-0">
+          <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors shadow-sm shrink-0">
         <div className="flex items-center justify-between">
           <h2 className="font-medium text-neutral-900 dark:text-white transition-colors">Sync status</h2>
           <div className="text-[11px] font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 transition-colors">
@@ -229,16 +228,16 @@ export default function AdminPage() {
           </div>
         </div>
         
-        <dl className="text-sm space-y-2 text-neutral-600 dark:text-neutral-300 transition-colors bg-white dark:bg-neutral-950 p-4 rounded-lg border border-neutral-200 dark:border-neutral-800/60">
+        <dl className="text-sm space-y-2 text-neutral-600 dark:text-neutral-300 transition-colors bg-white dark:bg-neutral-950 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
           <div className="flex justify-between items-center">
             <dt className="text-neutral-500">Token configured</dt>
             <dd className="font-medium">{status?.hasToken ? <span className="text-emerald-500 dark:text-emerald-400">Yes</span> : <span className="text-amber-500 dark:text-amber-400">No</span>}</dd>
           </div>
-          <div className="flex justify-between items-center pt-2 border-t border-neutral-100 dark:border-neutral-800/60">
+          <div className="flex justify-between items-center pt-2 border-t border-neutral-100 dark:border-neutral-700">
             <dt className="text-neutral-500">Last sync</dt>
             <dd className="font-medium text-xs">{formatDate(status?.lastSyncAt ?? null)}</dd>
           </div>
-          <div className="flex justify-between items-center pt-2 border-t border-neutral-100 dark:border-neutral-800/60">
+          <div className="flex justify-between items-center pt-2 border-t border-neutral-100 dark:border-neutral-700">
             <dt className="text-neutral-500">Last sync events</dt>
             <dd className="font-medium">{status?.lastSyncEventCount ?? "—"}</dd>
           </div>
@@ -249,7 +248,7 @@ export default function AdminPage() {
           )}
         </dl>
 
-        <div className="pt-4 pb-1 space-y-3 border-t border-neutral-200 dark:border-neutral-800 transition-colors">
+        <div className="pt-4 pb-1 space-y-3 border-t border-neutral-200 dark:border-neutral-700 transition-colors">
           <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-colors">Manual Sync Range (Optional)</p>
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <input 
@@ -290,7 +289,7 @@ export default function AdminPage() {
         </button>
       </section>
 
-      <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors shadow-sm flex flex-col flex-1">
+      <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors shadow-sm flex flex-col shrink-0">
         <div>
           <h2 className="font-medium text-neutral-900 dark:text-white transition-colors">Cursor session token</h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1.5 transition-colors leading-relaxed">
@@ -330,8 +329,8 @@ export default function AdminPage() {
         </div>
 
         {/* Right Column: Pricing */}
-        <div className="flex-1 min-w-0 flex flex-col pt-1 lg:pt-0">
-          <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors flex flex-col h-full shadow-sm">
+        <div className="flex-1 min-w-0 flex flex-col pt-1 xl:pt-0">
+          <section className="rounded-xl border border-neutral-200 bg-white/50 dark:border-neutral-700 dark:bg-neutral-900/60 p-5 space-y-4 transition-colors flex flex-col h-full min-h-[500px] xl:min-h-0 shadow-sm min-w-0">
             <div>
               <h2 className="font-medium text-neutral-900 dark:text-white transition-colors">Model Pricing</h2>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 transition-colors">
@@ -339,10 +338,10 @@ export default function AdminPage() {
               </p>
             </div>
             
-            <div className="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar border border-neutral-200 dark:border-neutral-800/50 rounded-lg">
+            <div className="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar border border-neutral-200 dark:border-neutral-700 rounded-lg min-w-0">
               <table className="w-full text-left text-[13px] whitespace-nowrap text-neutral-700 dark:text-neutral-300 transition-colors">
                 <thead className="sticky top-0 bg-neutral-100/95 dark:bg-neutral-950/95 backdrop-blur z-10 transition-colors">
-                  <tr className="border-b border-neutral-200 dark:border-neutral-800/80 transition-colors">
+                  <tr className="border-b border-neutral-200 dark:border-neutral-700 transition-colors">
                     <th className="py-2.5 px-3 font-medium">Model</th>
                     <th className="py-2.5 px-3 font-medium">Input</th>
                     <th className="py-2.5 px-3 font-medium">Output</th>
@@ -352,7 +351,7 @@ export default function AdminPage() {
                     <th className="py-2.5 px-3"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800/30">
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
                   {pricingModels.map((p) => {
                     const isEditing = editingPricing?.modelName === p.modelName;
                     const m = isEditing ? editingPricing : p;

@@ -29,8 +29,8 @@ export default function Nav() {
     }`;
 
   return (
-    <header className="border-b border-neutral-200 dark:border-neutral-800 transition-colors">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+    <header className="border-b border-neutral-200 dark:border-neutral-700 transition-colors">
+      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <span className="font-semibold text-neutral-900 dark:text-white">Cursor Spend Tracker</span>
           <nav className="flex items-center gap-1">
